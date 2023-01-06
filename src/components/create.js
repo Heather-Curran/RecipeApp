@@ -10,7 +10,7 @@ export class Create extends React.Component {
         super();
         // method binding
         this.handleSubmit = this.handleSubmit.bind(this); //To bind to the correct instance of this
-        this.onChangeTitle = this.onChangeBookTitle.bind(this);
+        this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeCategory = this.onChangeCategory.bind(this);
         this.onChangeDirections = this.onChangeDirections.bind(this);
         this.onChangeIngredient01 = this.onChangeIngredient01.bind(this);

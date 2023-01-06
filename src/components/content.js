@@ -7,8 +7,8 @@ export class Content extends React.Component{
         //Javascript always goes in return()
         return(
             <div>
-                <h1>Hello World!</h1>
-                <h2>It is {new Date().toLocaleTimeString()}.</h2>
+                <h1>Welcome to heathers Cook Book</h1>
+                <p></p>
             </div>
          );
             
