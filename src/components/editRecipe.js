@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Container } from '@mui/system';
-import { Button } from 'bootstrap';
 
 export function EditRecipe(props) {
     // The useParams hook returns an object of key/value pairs of
@@ -231,8 +230,12 @@ export function EditRecipe(props) {
             .catch();
     }
     
+    // hard coded return method for the creation component. This displays the chart for the user to fill in
+    // a method could have been done to loop over this but would have caused an issue with the setting of values via method due to not being able to set the onChange event
+    // with numbers, this differs from create in that it uses a different form of holding data to utilise it in a post method
     return (
         <div>
+            <h1 id='TitleStyle'><b>Edit a Recipe</b></h1>
             <form onSubmit={handleSubmit}>
                 <Card>
                     <div>
@@ -493,7 +496,7 @@ export function EditRecipe(props) {
                 </div>
                 </Card>
                 <div className="form-group">
-                    <input type="submit" value="Edit Book" className="btn btn-primary"
+                    <input type="submit" value="Edit Recipe" className="btn btn-primary"
                     />
                 </div>
             </form>

@@ -136,12 +136,12 @@ export class Create extends React.Component {
         }
     }
 
-    //handle submit
+    //handle submit function
     handleSubmit(e){
         e.preventDefault();
 
         //Item to pass up
-        const book = {
+        const recipe = {
             Title : this.state.Title,
             Category : this.state.Category,
             Directions : this.state.Directions,
@@ -203,8 +203,8 @@ export class Create extends React.Component {
             Unit18 : this.state.Unit18,
             Unit19 : this.state.Unit19
         }
-        
-        axios.post('http://localhost:4000/api/recipe',book)
+        //post request to the server for creating a new entry
+        axios.post('http://localhost:4000/api/recipe',recipe)
         .then()
         .catch();
 
@@ -342,9 +342,13 @@ export class Create extends React.Component {
     onChangeQuantity19(e){this.setState({Quantity19:e.target.value})}    
 
     //render - configured code from the editRecipe
+    // hard coded return method for the creation component. This displays the chart for the user to fill in
+    // a method could have been done to loop over this but would have caused an issue with the setting of values via method due to not being able to set the onChange event
+    // with numbers
     render() {
         return (
             <div>
+                <h1 id="TitleStyle"><b>Add a Recipe</b></h1>
             <form onSubmit={this.handleSubmit}>
                 <Card>
                     <div>
@@ -605,7 +609,7 @@ export class Create extends React.Component {
                 </div>
                 </Card>
                 <div className="form-group">
-                    <input type="submit" value="Edit Book" className="btn btn-primary"
+                    <input type="submit" value="Add Recipe" className="btn btn-primary"
                     />
                 </div>
             </form>

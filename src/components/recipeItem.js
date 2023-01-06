@@ -8,10 +8,11 @@ import '../App.css';
 
 export class RecipeItem extends React.Component{
 
+    // state for containg the recipes
     state = {
         Ingreds : []
     }
-    count;
+
     constructor(){
         super();
         this.DeleteRecipe = this.DeleteRecipe.bind(this);
@@ -19,6 +20,7 @@ export class RecipeItem extends React.Component{
         this.count = 0;
     }
 
+    //method call for deleting recipes from the database
     DeleteRecipe(e){
         e.preventDefault();
         //Delete from this URL with this id
@@ -29,6 +31,9 @@ export class RecipeItem extends React.Component{
         .catch();
     }
 
+    //method used for storing the ingredients
+    // an issue was happening where the call to this method was being performed 3 times.
+    // to avoid this issue the assignment to a specified value was done and an mass if statement created to filter out empty ingredients, quantitys and units
     IngredientsList(){
         if(this.props.recipe.Quantity != ""){
             this.state.Ingreds[0] = (this.props.recipe.Quantity+": "+this.props.recipe.Unit01+" - "+this.props.recipe.Ingredient01+"\n");
@@ -114,11 +119,12 @@ export class RecipeItem extends React.Component{
 
     // render method for the recipie item
     // setting up how the item is displayed to the user and binding the data from the databse to the item
+    // uses the method call to dispaly ingredients
     render(){
         return( 
             //Added card
             
-            <div >
+            <div>
                 <Card>
                     <Card.Header>
                         {this.props.recipe.Title}
@@ -127,8 +133,8 @@ export class RecipeItem extends React.Component{
                         <p>
                         <b>Ingredients : </b>
                            <this.IngredientsList/>
+                           <b>Instructions : </b>{this.props.recipe.Directions}
                         </p>
-                        <p><b>Instructions : </b>{this.props.recipe.Directions}</p>
                     </Card.Body>
                     <Card.Footer>
                     <Link to={'/editRecipe/' + this.props.recipe._id} className="btn btn-primary">Edit</Link>

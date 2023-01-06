@@ -42,17 +42,14 @@ export class DisplayRecipes extends React.Component{
     }
 
     //State holds data related to component
-    //Create recipes array and fill with book objects (json)
     state = {
         recipes:[ ]
     }
-
+        // render and call to component
         render(){
             return( 
                 <div>
-                    <h3>Hello from my DisplayRecipes Component</h3>
-                    {/* Imbed books.js component in read.js component */}
-                    {/* Taken data from state.recipes and sending it to the recipe component */}
+                    <h1 id="TitleStyle"><b>Recipes</b></h1>
                     <Recipes recipes={this.state.recipes} ReloadData={this.ReloadData}></Recipes>
                 </div>
             );

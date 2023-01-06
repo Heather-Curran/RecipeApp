@@ -8,7 +8,7 @@ import { Content } from './components/content';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { DisplayRecipes } from './components/DisplayRecipes'
+import { DisplayRecipes } from './components/displayRecipes'
 import { Create } from './components/create';
 import { EditRecipe } from './components/editRecipe';
 //Client side routing
@@ -29,19 +29,20 @@ class App extends React.Component {
       <Router>
         <div className="App">
           {/* Navigation Bar (jsx) - changes url if clicked*/}
-          <Navbar  variant="Light">
+          <Navbar bg='dark'  variant="dark">
             <Container>
-              <Navbar.Brand href="/">Heathers Cook Book</Navbar.Brand>
+              <Navbar.Brand href="/">Heather's Cookbook</Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/recipes">Recipes</Nav.Link>
                 <Nav.Link href="/create">Create</Nav.Link>
               </Nav>
               <input id="searchInput" placeholder='Search'></input>
-              <MatButton id='searchButton'>Search</MatButton>
+              <MatButton  id='searchButton'>Search</MatButton>
             </Container>
           </Navbar>
 
+          
           <Routes>
             {/* When url path changes to this, show this component */}
             <Route path='/' element={<Content />}></Route>

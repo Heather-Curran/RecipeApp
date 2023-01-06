@@ -13,9 +13,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json (Need this for Post Method)
 app.use(bodyParser.json())
 
-//Server Changes
-//server.js
-//add just under import section at the top of server,js
 // Serve the static files from the React app
 const path = require('path');
 app.use(express.static(path.join(__dirname,'../../build')));
@@ -23,7 +20,6 @@ app.use('/static', express.static(path.join(__dirname,'build//static')));
 
 
 //Importing mongoose library
-//Package that allows to conect to database
 const mongoose = require('mongoose');
 
 //Catch Errors
@@ -31,8 +27,7 @@ main().catch(err => console.log(err));
 
 //Connects to database
 async function main() {
-    //Connection string tells mongoose where to connect to
-    //Using this user and password
+    //Connection string tells mongoose where to connect to 
   await mongoose.connect('mongodb+srv://admin:admin@cluster0.zo0qzsa.mongodb.net/?retryWrites=true&w=majority'); //Connection string for database
 }
 
@@ -41,14 +36,6 @@ mongoose.connection.on('connected',() =>{
 })
 
 //Define Schema - What type of data you want to save
-//this can be swaped to define our data for recipies
-const bookSchema = new mongoose.Schema({
-    title: String,
-    cover: String,
-    author: String,
-    blog : String
-  });
-
   // recipie schema from a csv file found on a git repo - https://github.com/cweber/cookbook.git
   const recipesSchema = new mongoose.Schema({
     title: String,
@@ -132,13 +119,9 @@ const bookSchema = new mongoose.Schema({
     category : String,
   })
 
-//Represents a collection called books
-//Books will hold objects following bookSchema
+//Represents a collection of recipe data
 //Object that represents database
-const bookModel = mongoose.model('books', bookSchema);
 const recipesModel = mongoose.model('Recipes',recipesSchema);
-
-
 
 
 //Allows access to other server.
@@ -152,14 +135,10 @@ const cors = require('cors');
     next();
 });
 
-
+//greeting from the server for testing its active
 app.get('/', (req, res) => {
     res.send('Hello From Your Server')
 })
-
-//Listen for post request at this URL and send back this object
-//Find will find every document in database and send it back to you
-//Every document in database has a unique identifier
 
 //find all for the data and parse as json to the client
 app.get('/api/recipes',(req,res) =>{
@@ -175,7 +154,6 @@ app.get('/api/recipes/:id', (req, res)=>{
     console.log(req.params.id);
     
     //Search database for this parameter id
-    //BookModel represents database
     recipesModel.findById(req.params.id, (error, data)=>{
         res.json(data);
     })
@@ -183,9 +161,6 @@ app.get('/api/recipes/:id', (req, res)=>{
 
 // PUT - for editing an entry to the DB
 app.put('/api/recipe/:id', (req, res)=> {
-    console.log("Update: " + req.params.id);
-    console.log(req.body);
-
     //Pass it the id of what you want to overwrite and data you want to overwrite with
     recipesModel.findByIdAndUpdate(req.params.id, req.body, {new: true}, 
         (error, data) => {
@@ -193,7 +168,7 @@ app.put('/api/recipe/:id', (req, res)=> {
     })
 })
 
-// GET - for searching the DB
+// GET - for searching the DB - incomplete
 app.get('/api/recipesSearch/:id',(req, res) => {
     recipesModel.find({ Title: /req.params.id/}, (error, data)=>{
         res.json(data);
@@ -201,7 +176,7 @@ app.get('/api/recipesSearch/:id',(req, res) => {
 })
 
 //Listen for post request at this URL
-//When conditions are met - Log book data to console
+//When conditions are met - Log recipe data to console
 app.post('/api/recipes', (req,res) =>{
     console.log(req.body);
     recipesModel.create({
@@ -288,6 +263,7 @@ app.post('/api/recipes', (req,res) =>{
     })
 })
 
+//delete request
 app.delete('/api/recipe/:id', (req, res)=>{
     console.log("Deleting: " + req.params.id)
     //Find by id and delete
@@ -296,13 +272,11 @@ app.delete('/api/recipe/:id', (req, res)=>{
     })
 })
 
-//add at the bottom just over app.listen
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/../build/index.html'));
 });
     
-
 //Listens for request at port 4000
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
